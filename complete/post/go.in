@@ -1,0 +1,52 @@
+
+# Dakota Input File: textbook_opt_ouu1.in
+
+environment
+  top_method_pointer = 'OPTIM'
+    tabular_data
+    tabular_data_file = 'dakota_tabular.dat'
+
+
+method
+  id_method = 'OPTIM'
+## (NPSOL requires a software license; if not available, try
+## conmin_mfd or optpp_q_newton instead)
+  coliny_cobyla
+    convergence_tolerance = 1e-5
+    initial_delta .05
+    model_pointer = 'OPTIM_M'
+
+model
+  id_model = 'OPTIM_M'
+  single
+  #  sub_method_pointer = 'UQ'
+  #  primary_response_mapping   = 1. 0. 
+  #  #secondary_response_mapping = 0. 0. 
+  variables_pointer  = 'OPTIM_V'
+  responses_pointer  = 'OPTIM_R'
+
+variables
+  id_variables = 'OPTIM_V'
+  continuous_design = 11
+    initial_point    0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
+    upper_bounds     0.435 0.435 0.435 0.435 0.435 0.435 0.435 .435 0.435 0.435 .435
+    lower_bounds     -0.435 -0.435 -0.435 -0.435 -0.435 -0.435 -0.435 -.435 -0.435 -0.435 -.435
+    descriptors      'd1'   'd2' 'd3' 'd4' 'd5', 'd6' 'd7' 'd8' 'd9' 'd10' 'd11'
+
+responses
+  id_responses = 'OPTIM_R'
+  objective_functions = 1
+  no_gradients
+  no_hessians
+
+interface
+  id_interface = 'UQ_I'
+        fork
+          asynch evaluation_concurrency = 11
+          analysis_drivers = 'rosenbrock_bb_opt.py'
+# This instead for Windows:
+##        analysis_drivers = 'python.exe rosenbrock_bb_di.py'
+        parameters_file = 'params.in'
+        results_file = 'results.out'
+
+

@@ -1,0 +1,132 @@
+Dakota version 6.8 released Sep 29 2018.
+Repository revision 8a62837 (2018-05-07) built Sep 29 2018 19:29:51.
+Running serial Dakota executable in serial mode.
+Start time: Sat Jan 26 01:54:03 2019
+
+-----------------------
+Begin DAKOTA input file
+textbook_opt_ouu1.in
+-----------------------
+
+# Dakota Input File: textbook_opt_ouu1.in
+
+environment
+  top_method_pointer = 'OPTIM'
+    tabular_data
+    tabular_data_file = 'dakota_tabular.dat'
+
+
+method
+  id_method = 'OPTIM'
+## (NPSOL requires a software license; if not available, try
+## conmin_mfd or optpp_q_newton instead)
+  coliny_cobyla
+    convergence_tolerance = 1e-5
+    initial_delta .05
+    model_pointer = 'OPTIM_M'
+
+model
+  id_model = 'OPTIM_M'
+  nested
+    sub_method_pointer = 'UQ'
+    primary_response_mapping   = 1. 0. 
+    #secondary_response_mapping = 0. 0. 
+    #primary_variable_mapping 'd1' 'd2' 'd3' 'd4' 'd5' 'd6' 'd7' 'd8' 'd9' 'd10' 'd11'
+    #secondary_variable_mapping 'mean' 'mean' 'mean' 'mean' 'mean' 'mean' 
+  variables_pointer  = 'OPTIM_V'
+  responses_pointer  = 'OPTIM_R'
+
+variables
+  id_variables = 'OPTIM_V'
+  continuous_design = 11
+    initial_point                  0              0              0              0              0              0              0              0           0.05              0              0   
+    upper_bounds     .435 .435 .435 .435 .435 .435 .435 .435 .435 .435 .435
+    lower_bounds     -.435 -.435 -.435 -.435 -.435 -.435 -.435 -.435 -.435 -.435 -.435
+    descriptors      'd1' 'd2' 'd3' 'd4' 'd5' 'd6' 'd7' 'd8' 'd9' 'd10' 'd11'
+
+
+responses
+  id_responses = 'OPTIM_R'
+  objective_functions = 1
+  no_gradients
+  no_hessians
+
+method
+  id_method = 'UQ'
+  #polynomial_chaos
+  model_pointer = 'UQ_M'
+  stoch_collocation
+   quadrature_order 5
+  #sampling
+    output silent
+  #  model_pointer = 'UQ_M'
+    samples = 20000  sample_type lhs
+  #  seed = 1
+    distribution complementary
+
+model
+  id_model = 'UQ_M'
+  single
+    interface_pointer = 'UQ_I'
+  variables_pointer = 'UQ_V'
+  responses_pointer = 'UQ_R'
+
+variables
+  id_variables = 'UQ_V'
+  continuous_design = 11
+
+ normal_uncertain 2
+        means = 0. WS
+        #std_deviations = 1e-12 1e-12 1e-12 1e-12 1e-12 1e-12 1e-12 1e-12
+        std_deviations = 5. 1.
+        lower_bounds -30. 6.
+        upper_bounds 30. 20. 
+         descriptors  =  'direction' 'speed' 
+
+
+  
+
+  #normal_uncertain = 1
+  #  means          =  8.
+  #  std_deviations =   12.4  
+  #  descriptors    =  'nuv1'  
+  #uniform_uncertain = 1
+  #  lower_bounds = 0.8
+  #  upper_bounds =  1.2
+  #  descriptors  =  'uuv1' 
+  #
+  #
+  #
+  #
+  #
+  #
+  #weibull_uncertain = 1
+  #  lower_bounds 6
+  #  upper_bounds 12
+  #  alphas       =    3.
+  #  betas        =  8.
+  #  descriptors  =  'wuv1'  
+
+interface
+  id_interface = 'UQ_I'
+        fork
+          asynchronous evaluation_concurrency 96
+          analysis_drivers = 'rosenbrock_bb_di.py'
+          work_directory	
+          copy_files 'example_input.json'
+	  #deactivate evaluation_cache restart_file
+        parameters_file = 'params.in'
+        results_file = 'results.out'
+
+
+
+responses
+  id_responses = 'UQ_R'
+  response_functions = 1
+  no_gradients
+  no_hessians
+---------------------
+End DAKOTA input file
+---------------------
+
+Using Dakota input file 'textbook_opt_ouu1.in'

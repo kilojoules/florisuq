@@ -1,0 +1,68 @@
+#!/bin/bash
+#PBS -l walltime=8:00:00
+#PBS -l nodes=5:ppn=16
+#PBS -q batch-h
+#####PBS -l qos=high
+#####PBS -l feature=anynode
+#####PBS -l feature=256GB
+#PBS -A windse
+
+. ~/tigers/bin/activate
+join_by() {
+    # Usage:  join_by "||" a b c d
+    local arg arr=() sep="$1"
+    shift
+    for arg in "$@"; do
+        if [ 0 -lt "${#arr[@]}" ]; then
+            arr+=("${sep}")
+        fi
+        arr+=("${arg}") || break
+    done
+    printf "%s" "${arr[@]}"
+}
+
+# run det opt
+dakota -i go.in > go.out
+
+# save obj, yaws
+tail -n 1 dakota_tabular.dat  | awk 'NF>1{print $NF}' > det.det
+tail -n 1 dakota_tabular.dat  | cut -d I -f 2 | sed 's/.\s+*$//' | sed 's/.\w*$//' | sed 's/.\w*$//' > det.dat
+cp dakota_tabular.dat goHist.dat
+yaws=$(cat det.dat)
+
+# initialize OUU with det sln
+sed -i "s/INIT/$yaws/" textbook_opt_ouu1.in 
+dakota -i textbook_opt_ouu1.in > oudak.out
+cp dakota_tabular.dat ouuHist.dat
+
+# save OUU sln
+tail -n 1 dakota_tabular.dat  | awk 'NF>1{print $NF}' > ouu.exp
+tail -n 1 dakota_tabular.dat  | cut -d D -f 2 | sed 's/.\s+*$//' | sed 's/.\w*$//' | sed 's/.\w*$//' > ouu.dat
+
+# evaluate det of OUU sln
+python evalF.py ouu
+
+# evaluate det of base sln
+python evalF.py base
+
+# evaluate UQ of det sln
+yaws=$(join_by "," $(cat det.dat ))
+cp ../interFACE.py .
+sed -i "s/INIT/$yaws/" interFACE.py
+dakota -i uq2.in > dak.out
+python parser.py det
+
+# evaluate UQ of ouu sln
+yaws=$(join_by "," $(cat ouu.dat ))
+cp ../interFACE.py .
+sed -i "s/INIT/$yaws/" interFACE.py
+dakota -i uq2.in > dak.out
+python parser.py ouu
+
+# evaluate UQ of baseline sln
+yaws=$(join_by "," $(cat base.dat ))
+cp ../interFACE.py .
+sed -i "s/INIT/$yaws/" interFACE.py
+dakota -i uq2.in > dak.out
+python parser.py base
+

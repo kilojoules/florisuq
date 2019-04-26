@@ -1,0 +1,94 @@
+
+# Dakota Input File: textbook_opt_ouu1.in
+
+environment
+  top_method_pointer = 'UQ'
+    tabular_data
+    tabular_data_file = 'dakota_tabular.dat'
+
+
+method
+  id_method = 'UQ'
+  #polynomial_chaos
+  model_pointer = 'UQ_M'
+  stoch_collocation
+ p_refinement uniform
+ askey
+ max_refinement_iterations 2
+ quadrature_order 5
+ sample_type lhs
+
+  #sampling
+  #  output silent
+  #  model_pointer = 'UQ_M'
+    #samples = 20000  sample_type lhs
+  #  seed = 1
+    distribution complementary
+
+model
+  id_model = 'UQ_M'
+  single
+    interface_pointer = 'UQ_I'
+  variables_pointer = 'UQ_V'
+  responses_pointer = 'UQ_R'
+
+variables
+
+ id_variables = 'UQ_V'
+ normal_uncertain 2
+        means = 0. WS 
+        #std_deviations = 1e-12 1e-12 1e-12 1e-12 1e-12 1e-12 1e-12 1e-12
+        std_deviations = 5. 1. 
+        lower_bounds -infinity 3. 
+        upper_bounds infinity 20.
+         descriptors  =  'direction' 'speed' 
+
+
+  continuous_state = 11
+    #initial_point    0.0005056471878   0.0140863333  -0.0164433109 -0.01007608058  0.04419660143  0.02119029554 -0.05485854162          0.435  -0.4038277916   0.3971562148         -0.435 # det
+    initial_point    0.007936451595  0.00318153587 -0.003221441132 -0.007986971411  0.04775846705 5.666427602e-06 -0.04809238468   0.2025050283 -0.03854073821  0.03863363875  -0.2016976931 # ouu
+    upper_bounds     .435 .435 .435 .435 .435 .435 .435 .435 .435 .435 .435
+    lower_bounds     -.435 -.435 -.435 -.435 -.435 -.435 -.435 -.435 -.435 -.435 -.435
+    descriptors      'd1' 'd2' 'd3' 'd4' 'd5' 'd6' 'd7' 'd8' 'd9' 'd10' 'd11'
+
+  
+
+  #normal_uncertain = 1
+  #  means          =  8.
+  #  std_deviations =   12.4  
+  #  descriptors    =  'nuv1'  
+  #uniform_uncertain = 1
+  #  lower_bounds = 0.8
+  #  upper_bounds =  1.2
+  #  descriptors  =  'uuv1' 
+  #
+  #
+  #
+  #
+  #
+  #
+  #weibull_uncertain = 1
+  #  lower_bounds 6
+  #  upper_bounds 12
+  #  alphas       =    3.
+  #  betas        =  8.
+  #  descriptors  =  'wuv1'  
+
+interface
+  id_interface = 'UQ_I'
+        fork
+          asynchronous 
+          analysis_drivers = 'FACE.py'
+          work_directory	
+          copy_files 'example_input.json'
+	  #deactivate evaluation_cache restart_file
+        parameters_file = 'params.in'
+        results_file = 'results.out'
+
+
+
+responses
+  id_responses = 'UQ_R'
+  response_functions = 1
+  no_gradients
+  no_hessians

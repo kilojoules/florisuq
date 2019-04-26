@@ -1,0 +1,1412 @@
+Dakota version 6.8 released Sep 29 2018.
+Repository revision 8a62837 (2018-05-07) built Sep 29 2018 19:29:51.
+Running serial Dakota executable in serial mode.
+Start time: Sat Jan 26 01:53:45 2019
+
+-----------------------
+Begin DAKOTA input file
+go.in
+-----------------------
+
+# Dakota Input File: textbook_opt_ouu1.in
+
+environment
+  top_method_pointer = 'OPTIM'
+    tabular_data
+    tabular_data_file = 'dakota_tabular.dat'
+
+
+method
+  id_method = 'OPTIM'
+## (NPSOL requires a software license; if not available, try
+## conmin_mfd or optpp_q_newton instead)
+  coliny_cobyla
+    convergence_tolerance = 1e-5
+    initial_delta .05
+    model_pointer = 'OPTIM_M'
+
+model
+  id_model = 'OPTIM_M'
+  single
+  #  sub_method_pointer = 'UQ'
+  #  primary_response_mapping   = 1. 0. 
+  #  #secondary_response_mapping = 0. 0. 
+  variables_pointer  = 'OPTIM_V'
+  responses_pointer  = 'OPTIM_R'
+
+variables
+  id_variables = 'OPTIM_V'
+  continuous_design = 11
+    initial_point    0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
+    upper_bounds     0.435 0.435 0.435 0.435 0.435 0.435 0.435 .435 0.435 0.435 .435
+    lower_bounds     -0.435 -0.435 -0.435 -0.435 -0.435 -0.435 -0.435 -.435 -0.435 -0.435 -.435
+    descriptors      'd1'   'd2' 'd3' 'd4' 'd5', 'd6' 'd7' 'd8' 'd9' 'd10' 'd11'
+
+responses
+  id_responses = 'OPTIM_R'
+  objective_functions = 1
+  no_gradients
+  no_hessians
+
+interface
+  id_interface = 'UQ_I'
+        fork
+          asynch evaluation_concurrency = 11
+          analysis_drivers = 'rosenbrock_bb_opt.py'
+# This instead for Windows:
+##        analysis_drivers = 'python.exe rosenbrock_bb_di.py'
+        parameters_file = 'params.in'
+        results_file = 'results.out'
+
+
+---------------------
+End DAKOTA input file
+---------------------
+
+Using Dakota input file 'go.in'
+Writing new restart file 'dakota.rst'.
+
+Warning: Concurrent local evaluations with named parameters_file or
+         results_file require file_tag; enabling file_tag.
+
+Seed (system-generated) = 1548492825
+
+>>>>> Executing environment.
+
+>>>>> Running coliny_cobyla iterator.
+
+------------------------------
+Begin     UQ_I Evaluation    1
+------------------------------
+Parameters for evaluation 1:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.1 results.out.1
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 1:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation    2
+------------------------------
+Parameters for evaluation 2:
+                      5.0000000000e-02 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.2 results.out.2
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 2:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation    3
+------------------------------
+Parameters for evaluation 3:
+                      0.0000000000e+00 d1
+                      5.0000000000e-02 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.3 results.out.3
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 3:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation    4
+------------------------------
+Parameters for evaluation 4:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      5.0000000000e-02 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.4 results.out.4
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 4:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation    5
+------------------------------
+Parameters for evaluation 5:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      5.0000000000e-02 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.5 results.out.5
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 5:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation    6
+------------------------------
+Parameters for evaluation 6:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      5.0000000000e-02 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.6 results.out.6
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 6:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation    7
+------------------------------
+Parameters for evaluation 7:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      5.0000000000e-02 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.7 results.out.7
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 7:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation    8
+------------------------------
+Parameters for evaluation 8:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      5.0000000000e-02 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.8 results.out.8
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 8:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation    9
+------------------------------
+Parameters for evaluation 9:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      5.0000000000e-02 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.9 results.out.9
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 9:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   10
+------------------------------
+Parameters for evaluation 10:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      5.0000000000e-02 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.10 results.out.10
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 10:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   11
+------------------------------
+Parameters for evaluation 11:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      5.0000000000e-02 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.11 results.out.11
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 11:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   12
+------------------------------
+Parameters for evaluation 12:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      5.0000000000e-02 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.12 results.out.12
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 12:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   13
+------------------------------
+Parameters for evaluation 13:
+                      6.2500000000e-03 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.13 results.out.13
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 13:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   14
+------------------------------
+Parameters for evaluation 14:
+                      0.0000000000e+00 d1
+                      6.2500000000e-03 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.14 results.out.14
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 14:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   15
+------------------------------
+Parameters for evaluation 15:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      6.2500000000e-03 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.15 results.out.15
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 15:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   16
+------------------------------
+Parameters for evaluation 16:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      6.2500000000e-03 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.16 results.out.16
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 16:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   17
+------------------------------
+Parameters for evaluation 17:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      6.2500000000e-03 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.17 results.out.17
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 17:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   18
+------------------------------
+Parameters for evaluation 18:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      6.2500000000e-03 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.18 results.out.18
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 18:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   19
+------------------------------
+Parameters for evaluation 19:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      6.2500000000e-03 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.19 results.out.19
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 19:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   20
+------------------------------
+Parameters for evaluation 20:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      6.2500000000e-03 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.20 results.out.20
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 20:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   21
+------------------------------
+Parameters for evaluation 21:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      6.2500000000e-03 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.21 results.out.21
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 21:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   22
+------------------------------
+Parameters for evaluation 22:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      6.2500000000e-03 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.22 results.out.22
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 22:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   23
+------------------------------
+Parameters for evaluation 23:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      6.2500000000e-03 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.23 results.out.23
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 23:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   24
+------------------------------
+Parameters for evaluation 24:
+                      7.8125000000e-04 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.24 results.out.24
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 24:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   25
+------------------------------
+Parameters for evaluation 25:
+                      0.0000000000e+00 d1
+                      7.8125000000e-04 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.25 results.out.25
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 25:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   26
+------------------------------
+Parameters for evaluation 26:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      7.8125000000e-04 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.26 results.out.26
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 26:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   27
+------------------------------
+Parameters for evaluation 27:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      7.8125000000e-04 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.27 results.out.27
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 27:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   28
+------------------------------
+Parameters for evaluation 28:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      7.8125000000e-04 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.28 results.out.28
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 28:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   29
+------------------------------
+Parameters for evaluation 29:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      7.8125000000e-04 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.29 results.out.29
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 29:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   30
+------------------------------
+Parameters for evaluation 30:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      7.8125000000e-04 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.30 results.out.30
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 30:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   31
+------------------------------
+Parameters for evaluation 31:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      7.8125000000e-04 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.31 results.out.31
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 31:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   32
+------------------------------
+Parameters for evaluation 32:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      7.8125000000e-04 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.32 results.out.32
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 32:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   33
+------------------------------
+Parameters for evaluation 33:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      7.8125000000e-04 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.33 results.out.33
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 33:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   34
+------------------------------
+Parameters for evaluation 34:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      7.8125000000e-04 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.34 results.out.34
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 34:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   35
+------------------------------
+Parameters for evaluation 35:
+                      9.7656250000e-05 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.35 results.out.35
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 35:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   36
+------------------------------
+Parameters for evaluation 36:
+                      0.0000000000e+00 d1
+                      9.7656250000e-05 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.36 results.out.36
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 36:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   37
+------------------------------
+Parameters for evaluation 37:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      9.7656250000e-05 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.37 results.out.37
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 37:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   38
+------------------------------
+Parameters for evaluation 38:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      9.7656250000e-05 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.38 results.out.38
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 38:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   39
+------------------------------
+Parameters for evaluation 39:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      9.7656250000e-05 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.39 results.out.39
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 39:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   40
+------------------------------
+Parameters for evaluation 40:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      9.7656250000e-05 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.40 results.out.40
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 40:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   41
+------------------------------
+Parameters for evaluation 41:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      9.7656250000e-05 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.41 results.out.41
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 41:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   42
+------------------------------
+Parameters for evaluation 42:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      9.7656250000e-05 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.42 results.out.42
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 42:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   43
+------------------------------
+Parameters for evaluation 43:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      9.7656250000e-05 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.43 results.out.43
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 43:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   44
+------------------------------
+Parameters for evaluation 44:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      9.7656250000e-05 d10
+                      0.0000000000e+00 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.44 results.out.44
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 44:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+
+------------------------------
+Begin     UQ_I Evaluation   45
+------------------------------
+Parameters for evaluation 45:
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      9.7656250000e-05 d11
+
+blocking fork: rosenbrock_bb_opt.py params.in.45 results.out.45
+Running rosenbrock...
+[ 7.93645159e-03  3.18153587e-03 -3.22144113e-03 -7.98697141e-03
+  4.77584671e-02  5.66642760e-06 -4.80923847e-02  2.02505028e-01
+ -3.85407382e-02  3.86336387e-02 -2.01697693e-01]
+Rosenbrock complete.
+
+Active response data for UQ_I evaluation 45:
+Active set vector = { 1 }
+                     -7.2923372024e+06 obj_fn
+
+
+********************************************************
+WARNING: The implementation of COBYLA is such that the
+best function value is not always returned to Dakota
+for reporting.  The user is advised to look through the
+Dakota output to confirm what the best function value
+and corresponding parameter values are.
+********************************************************
+
+<<<<< Function evaluation summary (UQ_I): 45 total (45 new, 0 duplicate)
+<<<<< Best parameters          =
+                      0.0000000000e+00 d1
+                      0.0000000000e+00 d2
+                      0.0000000000e+00 d3
+                      0.0000000000e+00 d4
+                      0.0000000000e+00 d5
+                      0.0000000000e+00 d6
+                      0.0000000000e+00 d7
+                      0.0000000000e+00 d8
+                      0.0000000000e+00 d9
+                      0.0000000000e+00 d10
+                      0.0000000000e+00 d11
+<<<<< Best objective function  =
+                     -7.2923372024e+06
+<<<<< Best data captured at function evaluation 1
+
+
+<<<<< Iterator coliny_cobyla completed.
+<<<<< Environment execution completed.
+DAKOTA execution time in seconds:
+  Total CPU        =       2.58 [parent =    2.59068, child =  -0.010676]
+  Total wall clock =    18.6008

@@ -3,6 +3,9 @@
 
 environment
   top_method_pointer = 'OPTIM'
+    tabular_data
+    tabular_data_file = 'dakota_tabular.dat'
+
 
 method
   id_method = 'OPTIM'
@@ -10,24 +13,25 @@ method
 ## conmin_mfd or optpp_q_newton instead)
   coliny_cobyla
     convergence_tolerance = 1e-5
+    initial_delta 5.
     model_pointer = 'OPTIM_M'
 
 model
   id_model = 'OPTIM_M'
   nested
     sub_method_pointer = 'UQ'
-    primary_response_mapping   = 0. 0. 
+    primary_response_mapping   = 1. 0. 
     #secondary_response_mapping = 0. 0. 
   variables_pointer  = 'OPTIM_V'
   responses_pointer  = 'OPTIM_R'
 
 variables
   id_variables = 'OPTIM_V'
-  continuous_design = 2
-    initial_point    1.8    1.0
-    upper_bounds     2.164  4.0
-    lower_bounds     1.5    0.0
-    descriptors      'd1'   'd2'
+  continuous_design = 4
+    initial_point    0. 0. 0. 0.
+    upper_bounds     25. 25. 25. 25.
+    lower_bounds     -25. -25. -25. -25.
+    descriptors      'd1'   'd2' 'd3' 'd4'
 
 responses
   id_responses = 'OPTIM_R'
@@ -37,11 +41,14 @@ responses
 
 method
   id_method = 'UQ'
-  sampling
-    model_pointer = 'UQ_M'
-    samples = 50  sample_type lhs
-    seed = 1
-    distribution complementary
+  polynomial_chaos
+  #stoch_collocation
+   quadrature_order 6
+  #sampling
+  #  model_pointer = 'UQ_M'
+  #  samples = 50  sample_type lhs
+  #  seed = 1
+  #  distribution complementary
 
 model
   id_model = 'UQ_M'
@@ -52,19 +59,25 @@ model
 
 variables
   id_variables = 'UQ_V'
-  continuous_design = 2
+  continuous_design = 4
   #normal_uncertain = 1
   #  means          =  8.
   #  std_deviations =   12.4  
   #  descriptors    =  'nuv1'  
-  uniform_uncertain = 1
-    lower_bounds = 0.97
-    upper_bounds =  1.19
-    descriptors  =  'uuv1' 
-  weibull_uncertain = 1
-    alphas       =    3.
-    betas        =  8.
-    descriptors  =  'wuv1'  
+  uniform_uncertain = 2
+    lower_bounds = 1.0 8. 
+    upper_bounds =  1.2 10. 
+           descriptors  =  'uuv1' 'wuv1'
+   normal_uncertain 1
+          means = 0.
+          std_deviations = 3.
+           descriptors  =  'nuv1'
+  #weibull_uncertain = 1
+  #  lower_bounds 6
+  #  upper_bounds 12
+  #  alphas       =    3.
+  #  betas        =  8.
+  #  descriptors  =  'wuv1'  
 
 interface
   id_interface = 'UQ_I'

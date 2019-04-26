@@ -1,0 +1,45 @@
+#!/bin/bash
+#PBS -l walltime=8:00:00
+#PBS -l nodes=5:ppn=16
+#PBS -q batch-h
+#####PBS -l qos=high
+#####PBS -l feature=anynode
+#####PBS -l feature=256GB
+#PBS -A windse
+
+. ~/tigers/bin/activate
+join_by() {
+    # Usage:  join_by "||" a b c d
+    local arg arr=() sep="$1"
+    shift
+    for arg in "$@"; do
+        if [ 0 -lt "${#arr[@]}" ]; then
+            arr+=("${sep}")
+        fi
+        arr+=("${arg}") || break
+    done
+    printf "%s" "${arr[@]}"
+}
+
+
+# evaluate UQ of det sln
+yaws=$(join_by "," $(cat det.dat ))
+cp ../interFACE.py .
+sed -i "s/INIT/$yaws/" interFACE.py
+dakota -i uq2.in > dak.out
+python parser.py det
+
+# evaluate UQ of ouu sln
+yaws=$(join_by "," $(cat ouu.dat ))
+cp ../interFACE.py .
+sed -i "s/INIT/$yaws/" interFACE.py
+dakota -i uq2.in > dak.out
+python parser.py ouu
+
+# evaluate UQ of baseline sln
+yaws=$(join_by "," $(cat base.dat ))
+cp ../interFACE.py .
+sed -i "s/INIT/$yaws/" interFACE.py
+dakota -i uq2.in > dak.out
+python parser.py base
+

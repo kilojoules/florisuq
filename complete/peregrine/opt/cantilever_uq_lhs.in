@@ -1,0 +1,32 @@
+
+environment
+    tabular_data
+
+method
+  sampling
+    sample_type lhs
+    seed = 52983
+    samples = 600
+
+model
+  single
+
+variables
+  active uncertain
+  continuous_design = 2
+    initial_point    2.5    2.5
+    descriptors      'w'    't'
+  weibull_uncertain = 4
+    betas             =  10. 10. 10. 10.
+    alphas    =  2.5 2.5 2.5 2.5
+    descriptors       =  'R'    'E'     'X'  'Y'
+
+interface
+  direct
+    analysis_driver = 'mod_cantilever'
+
+responses
+  response_functions = 3
+  descriptors = 'area' 'stress' 'displacement'
+  no_gradients
+  no_hessians
